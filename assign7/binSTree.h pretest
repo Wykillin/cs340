@@ -1,0 +1,153 @@
+#ifndef H_BINTREES
+#define H_BINTREES
+
+
+/******************************************************************************************
+ * 		Name: 			Adam Wykle
+ *      Section: 		03
+ *      TA: 			Aditya Sabbineni
+ *      Due Date: 		10/6/2016
+ *      Assignment#: 	6
+ *		Purpose: 		Binary Tree Class, write a the class for binTree that can handle just about any type of data
+ *     					the class relies on Node.h for the class Node and is called by the driver program to do all the heavy
+ *						printing and stdout structuring.
+ *******************************************************************************************/
+#include "binTree.h"
+#include <algorithm>
+#include <iomanip>
+#include <iostream>
+#include <vector>
+using namespace std;
+/****************************************************************
+
+   CLASS:   Class definition for binSTree
+
+   NOTES:      
+			
+****************************************************************/
+
+template < class T >
+class binSTree : public binTree < T > {
+public:
+void insert ( const T&  ); // inserts node with value x
+void remove ( const T&  ); // removes node with value x
+private:
+void insert ( Node < T >*&, const T& ); // private version of insert
+void remove ( Node < T >*&, const T& ); // private version of remove
+Node < T >* pred ( Node < T >* ); // returns predecessor of node
+};
+
+// insert node with value x
+template <class T>
+void binSTree<T>::insert ( const T& x )
+{
+	return insert( x );
+}
+
+// remove node with value x
+template <class T>
+void binSTree<T>::remove ( const T& x )
+{
+	return remove( x );
+}
+  
+/****************************************************************
+
+   FUNCTION:   private version of inorder()
+
+   ARGUMENTS:  Node *&p, const x
+
+   RETURNS:    const x
+
+   NOTES:       Takes the value passed and determs if the root is empty. 
+				If root is empty, create a new node, else,
+				randomly select left or right node
+****************************************************************/
+/*template <class T>
+void binSTree<T>::remove( Node<T>*& p, cosnt T& x )
+{
+	Node<T>
+	if (p->left == 0 && p->right == 0)
+	{
+		p = NULL;
+		return p;
+	}
+	
+	if ( p->left != 0 && p->right == 0)
+	{
+		
+	}
+	 if ( p->right != 0 && p->left == 0)
+	{
+		
+	}
+		
+	
+	else
+	{
+		
+	}
+}*/
+// private version of remove
+template <class T>
+void binSTree<T>::remove ( Node <T>*& p, const T& v )
+{
+	Node<T>* curr;
+    Node<T>* parent;
+    curr = p;
+    
+    while( curr != NULL )
+    {
+         if( curr->data == v )
+         {
+            break;
+         }
+         else
+         {
+             parent = curr;
+
+             if( v > curr->data ) curr = curr->right;
+             else curr = curr->left;
+         }
+    }
+
+	if( curr != NULL )
+	{
+		if( parent->right == curr ) parent->right = NULL;
+		else parent->left = NULL;
+
+		delete curr;
+		curr = NULL;
+	}
+
+	if( this->size() >= 1 )
+	{
+		return this->root;
+	}
+
+	return this->root;
+}
+// private version of insert
+template <class T>
+void binSTree<T>::insert ( Node <T>*& p, const T& x )
+{
+	if(p == NULL)
+	{
+        p = new Node<T>( x );
+	}
+    else if( x < p->data)
+	{
+        insert(  x );
+	}
+    else if( x > p->data )
+	{
+        insert( x );
+	}
+    else
+	{
+        return; // duplicate 
+	}
+}
+
+
+#endif

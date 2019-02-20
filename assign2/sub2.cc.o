@@ -1,0 +1,113 @@
+/*
+ * CSCI 340 - Assignment 2 - Fall 2016
+ * 
+ * Programmer: Adam Wykle
+ * Section: 02
+ * TA: Aditya Sabbineni 
+ * Due Date: 9/8/2016
+ * 
+ * Purpose: This computer assignment is meant to implement two search 
+ * 			algorithms on randomly generated integers stored in vectors.
+ * 			The search algorithms are linear and binary. It will be using
+ * 			find() for linear searches and binary_search() for binary
+ *  
+*/
+
+#include "prog2.h"
+#include "algorithm"
+
+using namespace std;
+
+void Vectors(vector<int>& v1, vector<int>& v2, int s1, int s2) //fills vecs with rand() with seeds
+
+{
+	cout << v1.size()<< endl;
+	
+	srand(s1);
+		for( vector<int>::const_iterator it1 = v1.begin(); it1 != v1.end(); ++it1)
+	{
+		int RND_NUM1 = (rand() % (HIGH - LOW + 1) + LOW);
+		v1[*it1]= RND_NUM1 ;
+	}
+	
+	srand(s2);
+	for( vector<int>::const_iterator it2 = v2.begin(); it2 != v2.end(); ++it2)
+	{
+		int RND_NUM2 = (rand() % (HIGH - LOW + 1) + LOW);
+		v2[*it2]= RND_NUM2;
+	}
+}
+
+
+void sortVector(vector<int>& v)
+{
+	sort(v.begin(), v.end());
+	
+} 
+
+
+bool linearSearch(const vector<int>& v, int x)
+{
+	if ( find(v.begin(), v.end(), x) != v.end())
+		return true;
+	else
+		return false;
+		
+		
+}
+
+bool binarySearch(const vector<int>& v, int x)
+{
+	return binary_search(v.begin(), v.end(), x);
+}
+
+bool p(const vector<int>& v, int x)
+{
+	unsigned g;
+	g = (*p)(v,x);
+	
+	return g;
+}
+
+
+int search(const vector<int>& v1, const vector<int>& v2, bool (*p) (const vector<int>& , int ))
+{
+	int found = 0;
+	int x;
+	p = (*p)(v2, x);
+	
+
+		
+			
+		for (vector<int>::const_iterator it = v2.begin(); it!= v2.end(); ++it)
+			if( (p)(v1, v2[*it])) 
+				return found++;
+		
+	
+	
+		if( p(v1, v2[*it]))
+			found++;
+	
+	
+	return found;
+}
+
+void printStat( int totalSucCnt, int vectorSz)
+{
+	
+}
+
+void printVector( vector<int>& v)
+{
+	 for( vector<int>::const_iterator it = v.begin(); it != v.end(); it++)
+		{ 
+			cout  << setw(ITEM_W)  <<  v[*it];
+			if( *it / NO_ITEMS == NO_ITEMS)
+			{
+				cout  << endl;
+				//cout << v[*it] << ' ' << endl;
+
+			}
+		}
+}
+		
